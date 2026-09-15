@@ -2,9 +2,13 @@ import os
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import telebot
+from telebot import types
 
 TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(TOKEN)
+
+# Временное хранение объявлений
+ads = {}
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -34,6 +38,44 @@ def help_command(message):
         "📢 /add — разместить объявление\n"
         "📋 /myads — мои объявления"
     )
+
+@bot.message_handler(commands=["add"])
+def add_start(message):
+    ads[message.chat.id] = {}
+    bot.send_message(message.chat.id, "📂 Напиши категорию объявления.\n\nНапример: Авто, Запчасти, Услуги, Товары.")
+
+@bot.message_handler(func=lambda message: message.chat.id in ads and "category" not in ads[message.chat.id])
+def get_category(message):
+    ads[message.chat.id]["category"] = message.text
+    bot.send_message(message.chat.id, "✏️ Теперь напиши название объявления.")
+
+@bot.message_handler(func=lambda message: message.chat.id in ads and "title" not in ads[message.chat.id])
+def get_title(message):
+    ads[message.chat.id]["title"] = message.text
+    bot.send_message(message.chat.id, "💰 Напиши цену.")
+
+@bot.message_handler(func=lambda message: message.chat.id in ads and "price" not in ads[message.chat.id])
+def get_price(message):
+    ads[message.chat.id]["price"] = message.text
+    bot.send_message(message.chat.id, "📝 Теперь напиши описание.")
+
+@bot.message_handler(func=lambda message: message.chat.id in ads and "description" not in ads[message.chat.id])
+def get_description(message):
+    ads[message.chat.id]["description"] = message.text
+
+    ad = ads[message.chat.id]
+
+    bot.send_message(
+        message.chat.id,
+        f"✅ Объявление готово!\n\n"
+        f"📂 Категория: {ad['category']}\n"
+        f"📌 {ad['title']}\n"
+        f"💰 Цена: {ad['price']}\n"
+        f"📝 {ad['description']}\n\n"
+        f"⚠️ Пока это тестовая версия."
+    )
+
+    del ads[message.chat.id]
 
 threading.Thread(target=run_server, daemon=True).start()
 bot.infinity_polling()

@@ -80,7 +80,7 @@ label{display:block;font-weight:700;margin:16px 0 7px}input,textarea,select{widt
   <div class="note">Это первая демо-версия. Пока объявления не сохраняются на сервере — следующим этапом подключим базу данных и модерацию.</div>
 </div>
 
-<script>
+
 const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
 function openForm(){document.getElementById('form').classList.add('open')}
@@ -131,7 +131,7 @@ function filterCards(q){q=q.toLowerCase();document.querySelectorAll('.card').for
 </body> 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE";
+  const SUPABASE_URL = " https://hsnzswmyuidgzrjlmkpk.supabase.co/rest/v1/";
   const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE
 
   const supabaseClient = window.supabase.createClient(

@@ -86,6 +86,46 @@ if(tg){tg.ready();tg.expand();}
 function openForm(){document.getElementById('form').classList.add('open')}
 function closeForm(){document.getElementById('form').classList.remove('open')}
 
+async function sendDemo() {
+  const title = document.getElementById('listingTitle').value.trim();
+  const category = document.getElementById('listingCategory').value;
+  const priceText = document.getElementById('listingPrice').value;
+  const city = document.getElementById('listingCity').value.trim();
+  const description = document.getElementById('listingDescription').value.trim();
+
+  if (!title) {
+    alert('Введите название объявления');
+    return;
+  }
+
+  const digits = priceText.replace(/\D/g, '');
+  const price = digits ? Number(digits) : null;
+
+  const { error } = await supabaseClient
+    .from('listings')
+    .insert([{
+      title,
+      category,
+      price,
+      city,
+      description
+    }]);
+
+  if (error) {
+    console.error(error);
+    alert('Ошибка сохранения: ' + error.message);
+    return;
+  }
+
+  if (tg) {
+    tg.showAlert('Объявление отправлено на модерацию!');
+  } else {
+    alert('Объявление отправлено на модерацию!');
+  }
+
+  closeForm();
+}
+
 function filterCards(q){q=q.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=!q||c.dataset.search.toLowerCase().includes(q)?'block':'none')}
 </script>
 </body> 

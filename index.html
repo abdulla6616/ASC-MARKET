@@ -53,12 +53,29 @@ label{display:block;font-weight:700;margin:16px 0 7px}input,textarea,select{widt
 <div class="modal" id="form">
   <button class="close" onclick="closeForm()">← Назад</button>
   <h2>Подать объявление</h2>
-  <label>Категория</label><select><option>Авто</option><option>Мото</option><option>Телефоны</option><option>Услуги</option><option>Другое</option></select>
-  <label>Название</label><input placeholder="Например: BMW 530i">
-  <label>Цена</label><input inputmode="numeric" placeholder="3 500 000 ₽">
-  <label>Город</label><input placeholder="Махачкала">
-  <label>Описание</label><textarea rows="5" placeholder="Расскажите о товаре или услуге"></textarea>
-  <label>Фото</label><input type="file" accept="image/*" multiple>
+  <label>Категория</label>
+<select id="listingCategory">
+  <option>Авто</option>
+  <option>Мото</option>
+  <option>Телефоны</option>
+  <option>Услуги</option>
+  <option>Другое</option>
+</select>
+
+<label>Название</label>
+<input id="listingTitle" placeholder="Например: BMW 530i">
+
+<label>Цена</label>
+<input id="listingPrice" inputmode="numeric" placeholder="3 500 000 ₽">
+
+<label>Город</label>
+<input id="listingCity" placeholder="Махачкала">
+
+<label>Описание</label>
+<textarea id="listingDescription" rows="5" placeholder="Расскажите о товаре или услуге"></textarea>
+
+<label>Фото</label>
+<input type="file" accept="image/*" multiple>
   <button class="submit" onclick="sendDemo()">Отправить на модерацию</button>
   <div class="note">Это первая демо-версия. Пока объявления не сохраняются на сервере — следующим этапом подключим базу данных и модерацию.</div>
 </div>
@@ -68,13 +85,13 @@ const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
 function openForm(){document.getElementById('form').classList.add('open')}
 function closeForm(){document.getElementById('form').classList.remove('open')}
-function sendDemo(){if(tg)tg.showAlert('Объявление отправлено на модерацию (демо).');else alert('Объявление отправлено на модерацию (демо).');closeForm()}
+
 function filterCards(q){q=q.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=!q||c.dataset.search.toLowerCase().includes(q)?'block':'none')}
 </script>
 </body> 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = https://hsnzswmyuidgzrjlmkpk.supabase.co/rest/v1/
+  const SUPABASE_URL = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE";
   const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE
 
   const supabaseClient = window.supabase.createClient(

@@ -83,9 +83,9 @@ label{display:block;font-weight:700;margin:16px 0 7px}input,textarea,select{widt
 
 const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
+  <script>
 function openForm(){document.getElementById('form').classList.add('open')}
 function closeForm(){document.getElementById('form').classList.remove('open')}
-
 async function sendDemo() {
   const title = document.getElementById('listingTitle').value.trim();
   const category = document.getElementById('listingCategory').value;

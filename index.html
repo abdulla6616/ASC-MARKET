@@ -128,11 +128,11 @@ async function sendDemo() {
 
 function filterCards(q){q=q.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=!q||c.dataset.search.toLowerCase().includes(q)?'block':'none')}
 </script>
-</body> 
+ 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = " https://hsnzswmyuidgzrjlmkpk.supabase.co/rest/v1/";
-  const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE
+  const SUPABASE_URL = "https://hsnzswmyuidgzrjlmkpk.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzbnpzd215dWlkZ3pyamxta3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzgxNTMsImV4cCI6MjEwNzMxNDE1M30.KKAeb0EOnEmrChcAQMtH00wWlI6WYLE0W-39DjGYLaE"
 
   const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -141,5 +141,5 @@ function filterCards(q){q=q.toLowerCase();document.querySelectorAll('.card').for
 
   console.log("ASC MARKET: подключение Supabase настроено");
 </script>
-
+ </body>
 </html>
